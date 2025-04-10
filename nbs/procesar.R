@@ -5,11 +5,7 @@ names(impago) <- tolower(names(impago))
 impago <- impago %>% 
   mutate(respuesta=pay_0>0,
          tratamiento=pay_6>0,
-         importeAbril=bill_amt6,
-         importeMayo=bill_amt5,
-         importeJunio=bill_amt4,
-         importeJulio=bill_amt3,
-         importeAgosto=bill_amt2)
+         importeAbril=bill_amt6)
 
 # descartamos variables que no utilizaremos
 impago <- impago %>% select(-starts_with("pay_"),-starts_with("bill_amt"),
