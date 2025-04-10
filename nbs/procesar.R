@@ -3,7 +3,7 @@ impago <- read.csv(file="https://juandmontoro.github.io/icml/data/credit_card.cs
 names(impago) <- tolower(names(impago))
 
 impago <- impago %>% 
-  mutate(resultado=pay_0>0,
+  mutate(respuesta=pay_0>0,
          tratamiento=pay_6>0,
          importeAbril=bill_amt6)
 
