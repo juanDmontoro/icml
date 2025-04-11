@@ -1,0 +1,191 @@
+---
+title: "Emparejamiento por puntaje de propensión"
+subtitle: "Propensity score matching"
+format: 
+  html:
+    embed-resources: true
+    toc: true
+    toc_float: yes
+    theme: cosmo
+editor: source
+execute: 
+  warning: false
+lang: es
+---
+
+## Definición del problema
+
+Carga de datos y librerías
+
+```{r warning=FALSE,message=FALSE}
+library(MatchIt)
+library(cobalt)
+
+source("https://juandmontoro.github.io/icml/nbs/procesar.R")
+```
+
+Descripción de las variables: 
+
+1. `limite_bal`: límite tarjeta. 
+2. `género`: género (1 = hombre; 2 = mujer). 
+3. `edu`: nivel de educación (1 = graduate school; 2 = university; 3 = high school; 4 = others).  
+4. `ecivil`: estado civil (1 = married; 2 = single; 3 = others).  
+5. `edad`: edad.  
+6. `importeAbril` importe liquidación en abril de 2005.  
+7. `tratamiento`: impago mes de abril de 2005. 
+8. `respuesta`: impago mes de septiembre de 2005.  
+(Todos los importes monetarios en dólares NT.)
+
+> Q:  ¿Como afecta el impago de la liquidación en Abril de 2005 (tratamiento) al impago en Septiembre de 2005 (respuesta)? 
+
+
+
+A partir de las medias para tratados y no tratados podemos ver el grado de asociación entre tratamiento y respuesta:
+
+```{r}
+impago %>% 
+  group_by(tratamiento) %>% 
+  summarise(proporcion_impago_sept=mean(respuesta))
+```
+
+
+```{r echo=FALSE}
+# definiciones de proporciones observadas en la muestra
+# proporción impagos sept para tratados
+p1 = round(mean(impago[impago$tratamiento==1,"respuesta"]),2)
+# proprocion impagos sept para no tratados
+p0 = round(mean(impago[impago$tratamiento==0,"respuesta"]),2)
+
+```
+
+
+Vamos a medir el efecto como diferencia de riesgos (o probabilidades). A partir de las medias estimadas en la muestra podemos estimar la diferencia de riesgos como
+
+dim = `r p1`- `r p0` = `r p1-p0`
+
+No obstante si existe confusión, la estimación será sesgada.
+
+
+
+## Emparejamiento usando la propensión al tratamiento (PS)
+
+> Procedimiento bietápico donde en primer lugar se estima el objeto auxiliar $P(X)$, la probabilidad de recibir tratamiento. En una segunda etapa se utilizan las predicciones generadas por el modelo para el PS como distancia para emparejar unidades tratadas y no tratadas.
+
+Para la estimación del *propensity score* el paquete  `MatchIt` ofrece distintos métodos (argumento `distance` en la llamada a la función `matchit`) entre los que se incluyen: glm (logit por defecto), gam, gbm, lasso, ridge, elasticnet, rpart, randomforest, nnet (red neuronal de una sola capa oculta), cbps (regresión logística con restricciones de equilibrio de covarianzas) o bart (árboles de regresión aditiva bayesiana).
+
+Adicionalmente se puede delegar la generación de predicciones para el PS a rutinas/paquetes externos y pasarlas a `matchit`.  
+
+### Ejemplo 1: PS logit + emparejamiento por NN 
+
+#### 1.1 Emparejamiento
+
+Usamos un NN sobre el *propensity score* con ratio 3:1. En general tras el primer 
+"match", los siguientes emparejamientos serán peores y por tanto es relevante 
+comprobar la idoneidad del procedimiento (equilibrio en covariables). 
+
+```{r}
+m.ps.nn <- matchit(tratamiento ~ .-respuesta,
+                  method="nearest",
+                  distance="glm",
+                  ratio = 3,
+                  data=impago) 
+
+```
+
+Inspeccionamos el objeto resultante:
+
+```{r}
+m.ps.nn
+```
+
+El método summary nos ofrece más información (incluye equilibrio en covariables):
+
+```{r}
+summary(m.ps.nn)
+```
+
+Generamos el conjunto de datos emparejados:
+
+```{r}
+m.ps.nn.data <- match.data(m.ps.nn)
+glimpse(m.ps.nn.data) # variable distance contiene la predicción para PS 
+```
+
+#### 1.2 Equilibrio
+
+Podemos obtener un resumen del equilibrio en variables de confusión usando el paquete `cobalt`:
+
+```{r}
+bal.tab(m.ps.nn,stats = c("m","var","ks"),
+        thresholds=c(m=0.1,ks=0.05,var=2), 
+        un=TRUE)
+```
+
+```{r}
+love.plot(m.ps.nn,stats = c("m","var","ks"), 
+          abs = TRUE,thresholds=c(m=0.1,ks=0.05,var=2),
+          stars = "std")
+```
+
+Asimismo debemos comprobar la distribución (antes/después del emparejamiento) de las variables de confusión y del PS. Empezamos por el PS:
+
+```{r}
+library(patchwork)
+# Densidad
+p_1 <- bal.plot(m.ps.nn,var.name = "distance",which = "both",mirror=TRUE) 
+# histograma
+p_2 <- bal.plot(m.ps.nn, var.name = "distance", which = "both",
+         type = "histogram", mirror = TRUE) 
+p_1 + p_2 + plot_layout(ncol = 1)
+```
+
+Resto de variables de control:
+
+```{r fig.height=18}
+p_1 <- bal.plot(m.ps.nn,var.name = "importeAbril",which="both",mirror = TRUE)
+p_2 <- bal.plot(m.ps.nn,var.name = "edad",which="both",mirror = TRUE)
+p_3 <- bal.plot(m.ps.nn,var.name = "edu",type = "histogram",which="both",mirror = TRUE)
+p_4 <- bal.plot(m.ps.nn,var.name = "genero",type = "histogram",which="both",mirror = TRUE)
+p_5 <- bal.plot(m.ps.nn,var.name = "ecivil",type = "histogram",which="both",mirror = TRUE)
+p_6 <- bal.plot(m.ps.nn,var.name = "limite_bal",which="both",mirror = TRUE)
+
+p_1 + p_2 + p_3 + p_4 + p_5 + p_6 +  plot_layout(ncol = 1, 
+                                                 heights = unit(rep(5, 6), rep('cm', 6)))
+
+```
+
+### Ejemplo 2: elegir clasificador alternativo entre los incluidos en `matchit`
+
+
+```{r}
+#| eval: false
+
+# Nota: eliminar linea "eval: false" para ejecutar código en este bloque 
+
+m.ps.nn2 <- matchit(tratamiento ~.-respuesta,
+                     method="nearest",
+                     distance="METODO",
+                     distance.options = list(OPCIONES), 
+                     # minimiza tiempo ejecución (por defecto: n.trees=1e4,cv.folds=5)
+                     data=impago) 
+```
+
+ 
+
+#### 2.1 Emparejamiento
+
+#### 2.2 Equilibrio
+
+Nota: a la hora de evaluar el equilibrio incluir, tanto en la llamada a `bal.tab`
+como `love.plot` los argumentos `int=TRUE` y `poly=2`. ¿Qué información adicional
+generan? ¿Es relevante?
+
+### Ejemplo 3: MiPS + Método emparejamiento
+
+Instrucciones:
+
+1. Utilizar un paquete externo para estimar el PS.  
+2. Generar predicciones de la probabilidad de tratamiento con el modelo estimado en 1. Llamarlas `miPS`.
+3. Emparejar las unidades usando las predicciones del PS generadas en el punto anterior 
+(argumento `distance=miPS`).  
+4. Evaluar el equilibrio del PS y las variables de control.
