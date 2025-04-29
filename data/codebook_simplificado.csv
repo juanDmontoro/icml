@@ -1,0 +1,19 @@
+Variable,Etiqueta,Clase
+y,amount (in MAD) of loans: total,numeric
+d,1 if treated village,numeric
+members_resid_bl,BL number of hh members,numeric
+nadults_resid_bl,BL number of members 16 years old or older,numeric
+head_age_bl,BL head age,numeric
+act_livestock_bl,BL 1 if declared animal husbandry self-employment activity,numeric
+act_business_bl,BL 1 if declared non-agricultural self-employment activity,numeric
+members_resid_d_bl,1 if missing obs at baseline,numeric
+nadults_resid_d_bl,1 if missing obs at baseline,numeric
+head_age_d_bl,BL if head age missing,numeric
+act_livestock_d_bl,1 if missing obs at baseline,numeric
+act_business_d_bl,1 if missing obs at baseline,numeric
+ccm_resp_activ,1 if spouse of head responded to self-employment section,numeric
+other_resp_activ,1 if other member responded to self-employment section,numeric
+ccm_resp_activ_d,1 if ccm_resp_activ missing,numeric
+other_resp_activ_d,1 if other_resp_activ missing,numeric
+head_educ_1,1 if educational attainment: none,numeric
+nmember_age6_16,number of members age6_16,numeric
