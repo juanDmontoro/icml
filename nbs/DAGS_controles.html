@@ -55,18 +55,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 </style>
 
-<script src="DAGS_controles/libs/clipboard/clipboard.min.js"></script>
-<script src="DAGS_controles/libs/quarto-html/quarto.js" type="module"></script>
-<script src="DAGS_controles/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="DAGS_controles/libs/quarto-html/axe/axe-check.js" type="module"></script>
-<script src="DAGS_controles/libs/quarto-html/popper.min.js"></script>
-<script src="DAGS_controles/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="DAGS_controles/libs/quarto-html/anchor.min.js"></script>
-<link href="DAGS_controles/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="DAGS_controles/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="DAGS_controles/libs/bootstrap/bootstrap.min.js"></script>
-<link href="DAGS_controles/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="DAGS_controles/libs/bootstrap/bootstrap-312f617c3d905791698df14dc9484658.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/editor/editor.main.css">
+<script src="DAGS_controles_files/libs/clipboard/clipboard.min.js"></script>
+<script src="DAGS_controles_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="DAGS_controles_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="DAGS_controles_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="DAGS_controles_files/libs/quarto-html/popper.min.js"></script>
+<script src="DAGS_controles_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="DAGS_controles_files/libs/quarto-html/anchor.min.js"></script>
+<link href="DAGS_controles_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="DAGS_controles_files/libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="DAGS_controles_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="DAGS_controles_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="DAGS_controles_files/libs/bootstrap/bootstrap-312f617c3d905791698df14dc9484658.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/monaco-editor@0.47.0/min/vs/editor/editor.main.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <style type="text/css">
 .monaco-editor pre {
@@ -365,7 +365,7 @@ globalThis.qwebrCustomizedWebROptions = {
 };
 
 // Store cell data
-globalThis.qwebrCellDetails = [{"code":"z <- rnorm(300)\n\nx <- 2 + 3*z + rnorm(300)\n\ny <- 2 + x + z + rnorm(300)\n\n# Modelo incorrecto\nlm(y ~ x) |> confint()\n\n# Modelo correcto debería dar coeficiente de x = 1\n\nlm(y ~ x + z ) |> confint()","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"library(tidyverse)\nx <- rnorm(800)\nz <-  3*x + rnorm(800)\ny <- 2*z + rnorm(800)\nd <- tibble(x, y, z)\n\n# Para valores similares de Z el efecto de X sobre Y es 0, \n# Se puede observar haciendo  \"cortes\" en Z para verlo\nd  |>\n  mutate(z_cut = cut_interval(z, 9)) |>\n ggplot(aes(x = x, y = y)) +\n  geom_point(aes(color = z_cut)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"black\", linewidth= 2) +\n  geom_smooth(aes(color= z_cut), method = \"lm\", se = FALSE)","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"false","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"false"}},{"code":"# efecto total\nlm(y ~ x, data = d) |> confint()\n\n# efecto directo\nlm(y ~ x + z, data = d) |> confint()","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- rnorm(800)\ny <- rnorm(800)\n\nz <- as.factor(rbinom(800,1, plogis(2*x - 2*y + rnorm(800))))\n\nd <- tibble(x, y, z)\n\nd  |> \n ggplot(aes(x = x, y = y)) +\n  geom_point(aes(color = z)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"black\", linewidth= 2) +\n  geom_smooth(aes(color= z), method = \"lm\", se = FALSE)\n\n# Prueba a ajustar lo siguiente, puedes descomentar o escribir tu código\n\nlm(y ~ x, data = d) |> confint()\nlm(y ~ x + z, data = d) |> confint()","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"z <- rnorm(800)\n\nx <-  2 + 2*z + rnorm(800)\n\ny <-  2 * x + rnorm(800)\n\nd <- tibble(x, y, z)\n\n# no hay sesgo\n\nlm(y ~ x, data = d) |> confint()\nlm(y ~ x + z, data = d) |> confint()\n","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"f <- function(bzx = 2, bxy =2, n = 100){\n  z <- rnorm(n, 4, 2)\n  x <-  2 + bzx*z + rnorm(n)\n  y <-  2 + bxy*x + rnorm(n)\n  d <- tibble(x, y, z)\n  bx_preciso = coef(lm(y ~ x, data = d))[2]\n  bx_parasito = coef(lm(y ~ x + z,  data = d))[2]\n return(c(\n    unlist(bx_preciso), unlist(bx_parasito)))\n}\n\n\nsim <- replicate(400, f(n = 200))\n\nd <- data.frame(bx_preciso = sim[1,], bx_parasito = sim[2,])\n\nd <- d  |> \n  pivot_longer(cols =everything())\n\nd  |> \n  ggplot(aes(x = value, fill = name)) +\n  geom_density()\n\n\n\n","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"z <- rnorm(200)\nu <- rnorm(200)\n\n\nx <-  1 + 2*z + u + rnorm(200)\n\ny <- 1 +   x + u + rnorm(200)\n\nd <- tibble(x, y, z)\n\n# ajustar por la variable pre-treatment amplifica el sesgo\n\nlm(y ~ x, data = d) |> confint()\nlm(y ~ x + z, data = d) |> confint()\n","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"f <- function(bzx = 2, bxy =1, n = 100){\n  z <- rnorm(n)\n  u <- rnorm(n)\n\n  x <-  1 + bzx*z + u + rnorm(n)\n  y <-  1 + bxy*x + u + rnorm(n)\n  d <- tibble(x, y, z)\n  bx_sesgado = coef(lm(y ~ x, data = d))[2]\n  bx_sesgo_ampli = coef(lm(y ~ x + z,  data = d))[2]\n return(c(\n    unlist(bx_sesgado), unlist(bx_sesgo_ampli)))\n}\n\n\nsim <- replicate(400, f(n = 200))\n\nd <- data.frame(bx_sesgado = sim[1,], bx_sesgo_ampli = sim[2,])\n\nd <- d  |> \n  pivot_longer(cols =everything())\n\nd  |> \n  ggplot(aes(x = value, fill = name)) +\n  geom_density()\n","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
+globalThis.qwebrCellDetails = [{"code":"library(quartets)\nlibrary(tidyverse)\nlibrary(broom)\nlibrary(tidyverse)\n\n# 1. Tu resumen estadístico (ampliado con Sesgo)\nanalisis_causal <- causal_quartet |> \n  group_by(dataset) |> \n  summarise(\n    beta_simple = coef(lm(outcome ~ exposure))[2],\n    beta_ajustada = coef(lm(outcome ~ exposure + covariate))[2],\n    cor_xz = cor(exposure, covariate)\n  ) |> \n  mutate(\n    # En este cuarteto, el efecto verdadero suele ser 1\n    sesgo_ajuste = abs(1 - beta_ajustada)\n  )\n\nprint(analisis_causal)","id":1,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-1","message":"false","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"false"}},{"code":"z <- rnorm(300)\n\nx <- 2 + 3*z + rnorm(300)\n\ny <- 2 + x + z + rnorm(300)\n\n# Modelo incorrecto\nlm(y ~ x) |> confint()\n\n# Modelo correcto debería dar coeficiente de x = 1\n\nlm(y ~ x + z ) |> confint()","id":2,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-2","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- rnorm(800)\nz <-  3*x + rnorm(800)\ny <- 2*z + rnorm(800)\nd <- tibble(x, y, z)\n\n# Para valores similares de Z el efecto de X sobre Y es 0, \n# Se puede observar haciendo  \"cortes\" en Z para verlo\nd  |>\n  mutate(z_cut = cut_interval(z, 9)) |>\n ggplot(aes(x = x, y = y)) +\n  geom_point(aes(color = z_cut)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"black\", linewidth= 2) +\n  geom_smooth(aes(color= z_cut), method = \"lm\", se = FALSE)","id":3,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-3","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"# efecto total\nlm(y ~ x, data = d) |> confint()\n\n# efecto directo\nlm(y ~ x + z, data = d) |> confint()","id":4,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-4","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"x <- rnorm(800)\ny <- rnorm(800)\n\nz <- as.factor(rbinom(800,1, plogis(2*x - 2*y + rnorm(800))))\n\nd <- tibble(x, y, z)\n\nd  |> \n ggplot(aes(x = x, y = y)) +\n  geom_point(aes(color = z)) +\n  geom_smooth(method = \"lm\", se = FALSE, color = \"black\", linewidth= 2) +\n  geom_smooth(aes(color= z), method = \"lm\", se = FALSE)\n\n# Prueba a ajustar lo siguiente, puedes descomentar o escribir tu código\n\nlm(y ~ x, data = d) |> confint()\nlm(y ~ x + z, data = d) |> confint()","id":5,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-5","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"z <- rnorm(800)\n\nx <-  2 + 2*z + rnorm(800)\n\ny <-  2 * x + rnorm(800)\n\nd <- tibble(x, y, z)\n\n# no hay sesgo\n\nlm(y ~ x, data = d) |> confint()\nlm(y ~ x + z, data = d) |> confint()\n","id":6,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-6","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"f <- function(bzx = 2, bxy =2, n = 100){\n  z <- rnorm(n, 4, 2)\n  x <-  2 + bzx*z + rnorm(n)\n  y <-  2 + bxy*x + rnorm(n)\n  d <- tibble(x, y, z)\n  bx_preciso = coef(lm(y ~ x, data = d))[2]\n  bx_parasito = coef(lm(y ~ x + z,  data = d))[2]\n return(c(\n    unlist(bx_preciso), unlist(bx_parasito)))\n}\n\n\nsim <- replicate(400, f(n = 200))\n\nd <- data.frame(bx_preciso = sim[1,], bx_parasito = sim[2,])\n\nd <- d  |> \n  pivot_longer(cols =everything())\n\nd  |> \n  ggplot(aes(x = value, fill = name)) +\n  geom_density()\n\n\n\n","id":7,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-7","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"z <- rnorm(200)\nu <- rnorm(200)\n\n\nx <-  1 + 2*z + u + rnorm(200)\n\ny <- 1 +   x + u + rnorm(200)\n\nd <- tibble(x, y, z)\n\n# ajustar por la variable pre-treatment amplifica el sesgo\n\nlm(y ~ x, data = d) |> confint()\nlm(y ~ x + z, data = d) |> confint()\n","id":8,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-8","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}},{"code":"f <- function(bzx = 2, bxy =1, n = 100){\n  z <- rnorm(n)\n  u <- rnorm(n)\n\n  x <-  1 + bzx*z + u + rnorm(n)\n  y <-  1 + bxy*x + u + rnorm(n)\n  d <- tibble(x, y, z)\n  bx_sesgado = coef(lm(y ~ x, data = d))[2]\n  bx_sesgo_ampli = coef(lm(y ~ x + z,  data = d))[2]\n return(c(\n    unlist(bx_sesgado), unlist(bx_sesgo_ampli)))\n}\n\n\nsim <- replicate(400, f(n = 200))\n\nd <- data.frame(bx_sesgado = sim[1,], bx_sesgo_ampli = sim[2,])\n\nd <- d  |> \n  pivot_longer(cols =everything())\n\nd  |> \n  ggplot(aes(x = value, fill = name)) +\n  geom_density()\n","id":9,"options":{"autorun":"false","classes":"","comment":"","context":"interactive","dpi":72,"editor-font-scale":"1","editor-max-height":"","editor-quick-suggestions":"false","editor-word-wrap":"true","fig-cap":"","fig-height":5,"fig-width":7,"label":"unnamed-chunk-9","message":"true","out-height":"","out-width":"700px","output":"true","read-only":"false","results":"markup","warning":"true"}}];
 
 </script><script type="module">
 // Declare startupMessageQWebR globally
@@ -1622,7 +1622,17 @@ globalThis.qwebrExecuteCode = async function (
    
   <ul>
 <li>
-<a href="#buenos-y-malos-controles" id="toc-buenos-y-malos-controles" class="nav-link active" data-scroll-target="#buenos-y-malos-controles">Buenos y malos controles</a>
+<a href="#la-inferencia-causal-no-es-solo-un-problema-estad%C3%ADstico." id="toc-la-inferencia-causal-no-es-solo-un-problema-estadístico." class="nav-link active" data-scroll-target="#la-inferencia-causal-no-es-solo-un-problema-estad%C3%ADstico.">1. La inferencia causal no es (solo) un problema estadístico.</a>
+  <ul class="collapse">
+<li><a href="#conexi%C3%B3n-por-variable-de-colisi%C3%B3n" id="toc-conexión-por-variable-de-colisión" class="nav-link" data-scroll-target="#conexi%C3%B3n-por-variable-de-colisi%C3%B3n">Conexión por variable de colisión:</a></li>
+  <li><a href="#confusi%C3%B3n" id="toc-confusión" class="nav-link" data-scroll-target="#confusi%C3%B3n">Confusión:</a></li>
+  <li><a href="#efecto-causal-con-mediaci%C3%B3n" id="toc-efecto-causal-con-mediación" class="nav-link" data-scroll-target="#efecto-causal-con-mediaci%C3%B3n">Efecto causal con mediación:</a></li>
+  <li><a href="#sesgo-en-m" id="toc-sesgo-en-m" class="nav-link" data-scroll-target="#sesgo-en-m">Sesgo en M:</a></li>
+  <li><a href="#estimaci%C3%B3n-del-efecto-para-los-diferentes-mgd" id="toc-estimación-del-efecto-para-los-diferentes-mgd" class="nav-link" data-scroll-target="#estimaci%C3%B3n-del-efecto-para-los-diferentes-mgd">Estimación del efecto para los diferentes MGD</a></li>
+  </ul>
+</li>
+  <li>
+<a href="#buenos-y-malos-controles" id="toc-buenos-y-malos-controles" class="nav-link" data-scroll-target="#buenos-y-malos-controles">2. Buenos y malos controles</a>
   <ul class="collapse">
 <li><a href="#variable-de-confusi%C3%B3n" id="toc-variable-de-confusión" class="nav-link" data-scroll-target="#variable-de-confusi%C3%B3n">Variable de confusión</a></li>
   <li><a href="#mediator-o-chain" id="toc-mediator-o-chain" class="nav-link" data-scroll-target="#mediator-o-chain">Mediator o chain</a></li>
@@ -1934,13 +1944,67 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
   
 
 
-</header><section id="buenos-y-malos-controles" class="level2"><h2 class="anchored" data-anchor-id="buenos-y-malos-controles">Buenos y malos controles</h2>
+</header><section id="la-inferencia-causal-no-es-solo-un-problema-estadístico." class="level2"><h2 class="anchored" data-anchor-id="la-inferencia-causal-no-es-solo-un-problema-estadístico.">1. La inferencia causal no es (solo) un problema estadístico.</h2>
+<p>Los siguientes DAGs ilustran conjuntos de datos generados por mecanismos distintos que devuelven las mismas asociaciones estadísticas entre tratamiento y respuesta:</p>
+<section id="conexión-por-variable-de-colisión" class="level3"><h3 class="anchored" data-anchor-id="conexión-por-variable-de-colisión">Conexión por variable de colisión:</h3>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-causal/ggdag">ggdag</a></span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/quick_plot.html">ggdag_collider_triangle</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag_blank</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="2400"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="confusión" class="level3"><h3 class="anchored" data-anchor-id="confusión">Confusión:</h3>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/quick_plot.html">ggdag_confounder_triangle</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag_blank</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="2400"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="efecto-causal-con-mediación" class="level3"><h3 class="anchored" data-anchor-id="efecto-causal-con-mediación">Efecto causal con mediación:</h3>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/quick_plot.html">ggdag_mediation_triangle</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag_blank</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="2400"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="sesgo-en-m" class="level3"><h3 class="anchored" data-anchor-id="sesgo-en-m">Sesgo en M:</h3>
+<div class="cell">
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/quick_plot.html">ggdag_m_bias</a></span><span class="op">(</span>x_y_associated <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag_blank</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</details><div class="cell-output-display">
+<div>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="2400"></p>
+</figure>
+</div>
+</div>
+</div>
+</section><section id="estimación-del-efecto-para-los-diferentes-mgd" class="level3"><h3 class="anchored" data-anchor-id="estimación-del-efecto-para-los-diferentes-mgd">Estimación del efecto para los diferentes MGD</h3>
+<p>El paquete <code>quartets</code> contiene simulaciones para los cuatro modelos anteriores:<br>
+- <code>causal_collider</code><br>
+- <code>causal_confounding</code><br>
+- <code>causal_mediator</code><br>
+- <code>causal_m_bias</code></p>
+<p>Vamos a mostrar que el enfoque cuantitativo “puro” falla. Comenzamos con una regresión con controles en los cuatro escenarios simulados. Medicion de efectos observados:</p>
+<div id="qwebr-insertion-location-1"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>por tabla con una visualización y un diagnóstico de Sesgo Relativo. Propuesta de Análisis: La Trampa de la Regresión</p>
+<p>Podemos comparar el efecto “crudo” frente al efecto “ajustado” para ver cómo la inclusión de la variable Z (la covariable) cambia la interpretación según el dataset.</p>
+</section></section><section id="buenos-y-malos-controles" class="level2"><h2 class="anchored" data-anchor-id="buenos-y-malos-controles">2. Buenos y malos controles</h2>
 <p>Aunque hemos visto previamente las diferentes estructuras en un DAG, en este vamos a simular datos para convencernos de que efectivamente hay buenos y malos controles.</p>
 <section id="variable-de-confusión" class="level3"><h3 class="anchored" data-anchor-id="variable-de-confusión">Variable de confusión</h3>
 <p><strong>DAG</strong></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/r-causal/ggdag">ggdag</a></span><span class="op">)</span></span>
-<span><span class="co">#| echo: true</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: true</span></span>
 <span></span>
 <span><span class="va">dag1</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span> <span class="op">~</span>  <span class="va">z</span>, </span>
@@ -1962,28 +2026,28 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/ggdag.html">ggdag</a></span><span class="op">(</span><span class="va">dag1</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Veamos el conjunto de ajuste:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag1</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag1</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>El modelo correcto dado este dag es ajustar por Z. Veamos si es cierto, simulando la estructura del dag.</p>
-<div id="qwebr-insertion-location-1"></div>
+<div id="qwebr-insertion-location-2"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section><section id="mediator-o-chain" class="level3"><h3 class="anchored" data-anchor-id="mediator-o-chain">Mediator o chain</h3>
 <p><strong>DAG</strong></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: true</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: true</span></span>
 <span></span>
 <span><span class="va">dag_med</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
 <span>  <span class="va">z</span> <span class="op">~</span>  <span class="va">x</span>, </span>
@@ -2004,7 +2068,7 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/ggdag.html">ggdag</a></span><span class="op">(</span><span class="va">dag_med</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
@@ -2012,39 +2076,39 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <p>Cuando tenemos una variable mediadora podemos estar interesados en el efecto total o en el efecto directo.</p>
 <p><strong>Efecto total</strong></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: true</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="co">#| echo: true</span></span>
 <span></span>
 <span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag_med</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span>, effect <span class="op">=</span> <span class="st">"total"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p><strong>Efecto directo</strong></p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag_med</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span>, effect <span class="op">=</span> <span class="st">"direct"</span><span class="op">)</span> <span class="op">+</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag_med</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span>, effect <span class="op">=</span> <span class="st">"direct"</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Simulamos un efecto total de <code>x</code> sobre <code>y</code> igual a 6, pero totalmente mediado sólo por <code>z</code>, y que el efecto directo de <code>x</code> sobre <code>y</code> es 0.</p>
-<div id="qwebr-insertion-location-2"></div>
+<div id="qwebr-insertion-location-3"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Efecto total es sin ajustar por <code>z</code> y el efecto directo es ajustando por <code>z</code></p>
-<div id="qwebr-insertion-location-3"></div>
+<div id="qwebr-insertion-location-4"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section><section id="variable-de-colisión" class="level3"><h3 class="anchored" data-anchor-id="variable-de-colisión">Variable de colisión</h3>
 <p>No debemos condicionar por una variable de colisión.</p>
 <p>DAG</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">collider_dag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">collider_dag</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
 <span>  <span class="va">z</span> <span class="op">~</span> <span class="va">x</span> <span class="op">+</span> <span class="va">y</span> ,</span>
 <span>  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
 <span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span></span>
@@ -2063,31 +2127,31 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/ggdag.html">ggdag</a></span><span class="op">(</span><span class="va">collider_dag</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Y el conjunto de ajuste:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">collider_dag</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">collider_dag</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>En el siguiente ejemplo el verdadero efecto de x sobre y es 0; pero si ajustamos por la variable de colisión se abre el camino no causal y surje el sesgo.</p>
 <div class="cell">
-<div id="qwebr-insertion-location-4"></div>
+<div id="qwebr-insertion-location-5"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </div>
 </section><section id="parásito-de-la-precisión" class="level3"><h3 class="anchored" data-anchor-id="parásito-de-la-precisión">Parásito de la precisión</h3>
 <p>Hay veces en que ajustar por antecedentes al tratamiento es perjudicial. Si no hay variables de confusión “ocultas” se produce una reducción de la precisión</p>
 <p>DAG</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag2</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span> <span class="op">~</span>  <span class="va">z</span>, </span>
 <span>  <span class="va">y</span> <span class="op">~</span>  <span class="va">x</span>,</span>
 <span>  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -2107,32 +2171,32 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/ggdag.html">ggdag</a></span><span class="op">(</span><span class="va">dag2</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Conjunto de ajuste:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag2</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag2</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-9-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Estimación del efecto:</p>
-<div id="qwebr-insertion-location-5"></div>
+<div id="qwebr-insertion-location-6"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 <p>Simulemos para ver mejor la diferencia</p>
-<div id="qwebr-insertion-location-6"></div>
+<div id="qwebr-insertion-location-7"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
 </section><section id="amplificación-del-sesgo" class="level3"><h3 class="anchored" data-anchor-id="amplificación-del-sesgo">Amplificación del sesgo</h3>
 <p>A veces, si ajustamos por un pretreatment pero hay una variable de confusión no observada, podemos incurrir en amplificación del sesgo</p>
 <p>DAG</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="va">dag3</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/dagify.html">dagify</a></span><span class="op">(</span></span>
 <span>  <span class="va">x</span> <span class="op">~</span>  <span class="va">z</span> <span class="op">+</span> <span class="va">u</span>, </span>
 <span>  <span class="va">y</span> <span class="op">~</span>  <span class="va">x</span> <span class="op">+</span> <span class="va">u</span>,</span>
 <span>  coords <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span></span>
@@ -2154,28 +2218,28 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
 <span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/ggdag.html">ggdag</a></span><span class="op">(</span><span class="va">dag3</span><span class="op">)</span> <span class="op">+</span> <span class="fu"><a href="https://r-causal.github.io/ggdag/reference/theme_dag_blank.html">theme_dag</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-10-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Conjunto de ajuste:</p>
 <div class="cell">
-<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag3</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<details class="code-fold"><summary>Code</summary><div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="downlit sourceCode r code-with-copy"><code class="sourceCode R"><span><span class="fu"><a href="https://r-causal.github.io/ggdag/reference/adjustment_sets.html">ggdag_adjustment_set</a></span><span class="op">(</span><span class="va">dag3</span>, exposure <span class="op">=</span> <span class="st">"x"</span>, outcome <span class="op">=</span> <span class="st">"y"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details><div class="cell-output-display">
 <div>
-<figure class="figure"><p><img src="DAGS_controles/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="2400"></p>
+<figure class="figure"><p><img src="DAGS_controles_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="2400"></p>
 </figure>
 </div>
 </div>
 </div>
 <p>Tenemos que ajustar por <code>u</code>, pero <code>u</code> es no observada:</p>
-<div id="qwebr-insertion-location-7"></div>
-<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>Simulemos para ver mejor la diferencia</p>
 <div id="qwebr-insertion-location-8"></div>
 <noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
-<p>Se produce la amplificación del sesgo</p>
+<p>Simulemos para ver mejor la diferencia</p>
+<div id="qwebr-insertion-location-9"></div>
+<noscript>Please enable JavaScript to experience the dynamic code cell content on this page.</noscript>
+<p>Y vemos que se produce la amplificación del sesgo</p>
 <!-- -->
 
 </section></section></main><!-- /main column --><script id="quarto-html-after-body" type="application/javascript">
@@ -2629,432 +2693,501 @@ globalThis.qwebrCreateMonacoEditorInstance = function (cellData) {
     }
   });
   </script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Bloque 1. Materiales adicionales sobre DAGs"</span></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Juan D. Montoro-Pons"</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-height: 5</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-dpi: 300</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-width: 8</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-align: center</span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-link: true</span></span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true </span></span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true </span></span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="an">engine:</span><span class="co"> knitr </span></span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a><span class="an">filters:</span><span class="co"> </span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - webr</span></span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## Buenos y malos controles</span></span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>Aunque hemos visto previamente las diferentes estructuras en un DAG, en este vamos a simular datos para convencernos de que efectivamente hay buenos y malos controles. </span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### Variable de confusión</span></span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>__DAG__</span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>dag1 <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">~</span>  z, </span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span> z <span class="sc">+</span> x,</span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  <span class="at">exposure =</span> <span class="st">"x"</span>,</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"y"</span>,</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag1) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
-<span id="cb12-58"><a href="#cb12-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-59"><a href="#cb12-59" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-60"><a href="#cb12-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-61"><a href="#cb12-61" aria-hidden="true" tabindex="-1"></a>Veamos el conjunto de ajuste: </span>
-<span id="cb12-62"><a href="#cb12-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-65"><a href="#cb12-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-66"><a href="#cb12-66" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-67"><a href="#cb12-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-68"><a href="#cb12-68" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag1, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
-<span id="cb12-69"><a href="#cb12-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-70"><a href="#cb12-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-71"><a href="#cb12-71" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-72"><a href="#cb12-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-73"><a href="#cb12-73" aria-hidden="true" tabindex="-1"></a>El modelo correcto dado este dag es ajustar por Z. Veamos si es cierto, simulando la estructura del dag.</span>
-<span id="cb12-74"><a href="#cb12-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-75"><a href="#cb12-75" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb12-76"><a href="#cb12-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-77"><a href="#cb12-77" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rnorm(300)</span></span>
-<span id="cb12-78"><a href="#cb12-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-79"><a href="#cb12-79" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- 2 + 3*z + rnorm(300)</span></span>
-<span id="cb12-80"><a href="#cb12-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-81"><a href="#cb12-81" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- 2 + x + z + rnorm(300)</span></span>
-<span id="cb12-82"><a href="#cb12-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-83"><a href="#cb12-83" aria-hidden="true" tabindex="-1"></a><span class="in"># Modelo incorrecto</span></span>
-<span id="cb12-84"><a href="#cb12-84" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x) |&gt; confint()</span></span>
-<span id="cb12-85"><a href="#cb12-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-86"><a href="#cb12-86" aria-hidden="true" tabindex="-1"></a><span class="in"># Modelo correcto debería dar coeficiente de x = 1</span></span>
-<span id="cb12-87"><a href="#cb12-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-88"><a href="#cb12-88" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z ) |&gt; confint()</span></span>
-<span id="cb12-89"><a href="#cb12-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-90"><a href="#cb12-90" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-91"><a href="#cb12-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-92"><a href="#cb12-92" aria-hidden="true" tabindex="-1"></a><span class="fu">### Mediator o chain</span></span>
-<span id="cb12-93"><a href="#cb12-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-94"><a href="#cb12-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-95"><a href="#cb12-95" aria-hidden="true" tabindex="-1"></a>__DAG__</span>
-<span id="cb12-96"><a href="#cb12-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-99"><a href="#cb12-99" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-100"><a href="#cb12-100" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-101"><a href="#cb12-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-102"><a href="#cb12-102" aria-hidden="true" tabindex="-1"></a>dag_med <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
-<span id="cb12-103"><a href="#cb12-103" aria-hidden="true" tabindex="-1"></a>  z <span class="sc">~</span>  x, </span>
-<span id="cb12-104"><a href="#cb12-104" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span> z ,</span>
-<span id="cb12-105"><a href="#cb12-105" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
-<span id="cb12-106"><a href="#cb12-106" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
-<span id="cb12-107"><a href="#cb12-107" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
-<span id="cb12-108"><a href="#cb12-108" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
-<span id="cb12-109"><a href="#cb12-109" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
-<span id="cb12-110"><a href="#cb12-110" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb12-111"><a href="#cb12-111" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
-<span id="cb12-112"><a href="#cb12-112" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
-<span id="cb12-113"><a href="#cb12-113" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">1</span>,</span>
-<span id="cb12-114"><a href="#cb12-114" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
-<span id="cb12-115"><a href="#cb12-115" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-116"><a href="#cb12-116" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb12-117"><a href="#cb12-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-118"><a href="#cb12-118" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag_med) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
-<span id="cb12-119"><a href="#cb12-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-120"><a href="#cb12-120" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-121"><a href="#cb12-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-122"><a href="#cb12-122" aria-hidden="true" tabindex="-1"></a>Cuando tenemos una variable mediadora podemos estar interesados en el efecto total o en el efecto directo.</span>
-<span id="cb12-123"><a href="#cb12-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-124"><a href="#cb12-124" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-125"><a href="#cb12-125" aria-hidden="true" tabindex="-1"></a>__Efecto total__</span>
-<span id="cb12-126"><a href="#cb12-126" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-127"><a href="#cb12-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-130"><a href="#cb12-130" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-131"><a href="#cb12-131" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-132"><a href="#cb12-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-133"><a href="#cb12-133" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag_med, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>, <span class="at">effect =</span> <span class="st">"total"</span>) <span class="sc">+</span></span>
-<span id="cb12-134"><a href="#cb12-134" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>()</span>
-<span id="cb12-135"><a href="#cb12-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-136"><a href="#cb12-136" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-137"><a href="#cb12-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-138"><a href="#cb12-138" aria-hidden="true" tabindex="-1"></a>__Efecto directo__</span>
-<span id="cb12-139"><a href="#cb12-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-142"><a href="#cb12-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-143"><a href="#cb12-143" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-144"><a href="#cb12-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-145"><a href="#cb12-145" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag_med, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>, <span class="at">effect =</span> <span class="st">"direct"</span>) <span class="sc">+</span></span>
-<span id="cb12-146"><a href="#cb12-146" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>()</span>
-<span id="cb12-147"><a href="#cb12-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-148"><a href="#cb12-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-149"><a href="#cb12-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-150"><a href="#cb12-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-151"><a href="#cb12-151" aria-hidden="true" tabindex="-1"></a>Simulamos un efecto total de <span class="in">`x`</span> sobre <span class="in">`y`</span> igual a 6, pero totalmente mediado sólo por <span class="in">`z`</span>, y que el efecto directo de <span class="in">`x`</span> sobre <span class="in">`y`</span> es 0.</span>
-<span id="cb12-152"><a href="#cb12-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-153"><a href="#cb12-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb12-154"><a href="#cb12-154" aria-hidden="true" tabindex="-1"></a><span class="in">#| warning: false</span></span>
-<span id="cb12-155"><a href="#cb12-155" aria-hidden="true" tabindex="-1"></a><span class="in">#| message: false</span></span>
-<span id="cb12-156"><a href="#cb12-156" aria-hidden="true" tabindex="-1"></a><span class="in">library(tidyverse)</span></span>
-<span id="cb12-157"><a href="#cb12-157" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rnorm(800)</span></span>
-<span id="cb12-158"><a href="#cb12-158" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;-  3*x + rnorm(800)</span></span>
-<span id="cb12-159"><a href="#cb12-159" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- 2*z + rnorm(800)</span></span>
-<span id="cb12-160"><a href="#cb12-160" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
-<span id="cb12-161"><a href="#cb12-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-162"><a href="#cb12-162" aria-hidden="true" tabindex="-1"></a><span class="in"># Para valores similares de Z el efecto de X sobre Y es 0, </span></span>
-<span id="cb12-163"><a href="#cb12-163" aria-hidden="true" tabindex="-1"></a><span class="in"># Se puede observar haciendo  "cortes" en Z para verlo</span></span>
-<span id="cb12-164"><a href="#cb12-164" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt;</span></span>
-<span id="cb12-165"><a href="#cb12-165" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(z_cut = cut_interval(z, 9)) |&gt;</span></span>
-<span id="cb12-166"><a href="#cb12-166" aria-hidden="true" tabindex="-1"></a><span class="in"> ggplot(aes(x = x, y = y)) +</span></span>
-<span id="cb12-167"><a href="#cb12-167" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point(aes(color = z_cut)) +</span></span>
-<span id="cb12-168"><a href="#cb12-168" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth= 2) +</span></span>
-<span id="cb12-169"><a href="#cb12-169" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(aes(color= z_cut), method = "lm", se = FALSE)</span></span>
-<span id="cb12-170"><a href="#cb12-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-171"><a href="#cb12-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-172"><a href="#cb12-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-173"><a href="#cb12-173" aria-hidden="true" tabindex="-1"></a>Efecto total es sin ajustar por <span class="in">`z`</span> y el efecto directo es ajustando por <span class="in">`z`</span></span>
-<span id="cb12-174"><a href="#cb12-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-175"><a href="#cb12-175" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb12-176"><a href="#cb12-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-177"><a href="#cb12-177" aria-hidden="true" tabindex="-1"></a><span class="in"># efecto total</span></span>
-<span id="cb12-178"><a href="#cb12-178" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
-<span id="cb12-179"><a href="#cb12-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-180"><a href="#cb12-180" aria-hidden="true" tabindex="-1"></a><span class="in"># efecto directo</span></span>
-<span id="cb12-181"><a href="#cb12-181" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
-<span id="cb12-182"><a href="#cb12-182" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-183"><a href="#cb12-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-184"><a href="#cb12-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-185"><a href="#cb12-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-186"><a href="#cb12-186" aria-hidden="true" tabindex="-1"></a><span class="fu">###  Variable de colisión</span></span>
-<span id="cb12-187"><a href="#cb12-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-188"><a href="#cb12-188" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-189"><a href="#cb12-189" aria-hidden="true" tabindex="-1"></a>No debemos condicionar por una variable de colisión.</span>
-<span id="cb12-190"><a href="#cb12-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-191"><a href="#cb12-191" aria-hidden="true" tabindex="-1"></a>DAG</span>
-<span id="cb12-192"><a href="#cb12-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-195"><a href="#cb12-195" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-196"><a href="#cb12-196" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-197"><a href="#cb12-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-198"><a href="#cb12-198" aria-hidden="true" tabindex="-1"></a>collider_dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
-<span id="cb12-199"><a href="#cb12-199" aria-hidden="true" tabindex="-1"></a>  z <span class="sc">~</span> x <span class="sc">+</span> y ,</span>
-<span id="cb12-200"><a href="#cb12-200" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
-<span id="cb12-201"><a href="#cb12-201" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
-<span id="cb12-202"><a href="#cb12-202" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
-<span id="cb12-203"><a href="#cb12-203" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
-<span id="cb12-204"><a href="#cb12-204" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
-<span id="cb12-205"><a href="#cb12-205" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb12-206"><a href="#cb12-206" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
-<span id="cb12-207"><a href="#cb12-207" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
-<span id="cb12-208"><a href="#cb12-208" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
-<span id="cb12-209"><a href="#cb12-209" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
-<span id="cb12-210"><a href="#cb12-210" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-211"><a href="#cb12-211" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-212"><a href="#cb12-212" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-213"><a href="#cb12-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-214"><a href="#cb12-214" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(collider_dag) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
-<span id="cb12-215"><a href="#cb12-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-216"><a href="#cb12-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-217"><a href="#cb12-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-218"><a href="#cb12-218" aria-hidden="true" tabindex="-1"></a>Y el conjunto de ajuste:</span>
-<span id="cb12-219"><a href="#cb12-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-222"><a href="#cb12-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-223"><a href="#cb12-223" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-224"><a href="#cb12-224" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(collider_dag, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
-<span id="cb12-225"><a href="#cb12-225" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-226"><a href="#cb12-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-227"><a href="#cb12-227" aria-hidden="true" tabindex="-1"></a>En el siguiente ejemplo el verdadero efecto de x sobre y es 0; pero si ajustamos por la variable de colisión se abre el camino no causal y surje el sesgo.</span>
-<span id="cb12-228"><a href="#cb12-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-229"><a href="#cb12-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr, colllider_sim}</span></span>
-<span id="cb12-230"><a href="#cb12-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-231"><a href="#cb12-231" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rnorm(800)</span></span>
-<span id="cb12-232"><a href="#cb12-232" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- rnorm(800)</span></span>
-<span id="cb12-233"><a href="#cb12-233" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-234"><a href="#cb12-234" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- as.factor(rbinom(800,1, plogis(2*x - 2*y + rnorm(800))))</span></span>
-<span id="cb12-235"><a href="#cb12-235" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-236"><a href="#cb12-236" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
-<span id="cb12-237"><a href="#cb12-237" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-238"><a href="#cb12-238" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt; </span></span>
-<span id="cb12-239"><a href="#cb12-239" aria-hidden="true" tabindex="-1"></a><span class="in"> ggplot(aes(x = x, y = y)) +</span></span>
-<span id="cb12-240"><a href="#cb12-240" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point(aes(color = z)) +</span></span>
-<span id="cb12-241"><a href="#cb12-241" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth= 2) +</span></span>
-<span id="cb12-242"><a href="#cb12-242" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(aes(color= z), method = "lm", se = FALSE)</span></span>
-<span id="cb12-243"><a href="#cb12-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-244"><a href="#cb12-244" aria-hidden="true" tabindex="-1"></a><span class="in"># Prueba a ajustar lo siguiente, puedes descomentar o escribir tu código</span></span>
-<span id="cb12-245"><a href="#cb12-245" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-246"><a href="#cb12-246" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
-<span id="cb12-247"><a href="#cb12-247" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
-<span id="cb12-248"><a href="#cb12-248" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-249"><a href="#cb12-249" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-250"><a href="#cb12-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-251"><a href="#cb12-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-252"><a href="#cb12-252" aria-hidden="true" tabindex="-1"></a><span class="fu">### Parásito de la precisión</span></span>
-<span id="cb12-253"><a href="#cb12-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-254"><a href="#cb12-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-255"><a href="#cb12-255" aria-hidden="true" tabindex="-1"></a>Hay veces en que ajustar por antecedentes al tratamiento es perjudicial. Si no hay variables de confusión "ocultas" se produce una reducción de la precisión</span>
-<span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>DAG</span>
-<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-263"><a href="#cb12-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-264"><a href="#cb12-264" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
-<span id="cb12-265"><a href="#cb12-265" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">~</span>  z, </span>
-<span id="cb12-266"><a href="#cb12-266" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span>  x,</span>
-<span id="cb12-267"><a href="#cb12-267" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
-<span id="cb12-268"><a href="#cb12-268" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
-<span id="cb12-269"><a href="#cb12-269" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
-<span id="cb12-270"><a href="#cb12-270" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">1</span>,</span>
-<span id="cb12-271"><a href="#cb12-271" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
-<span id="cb12-272"><a href="#cb12-272" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb12-273"><a href="#cb12-273" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
-<span id="cb12-274"><a href="#cb12-274" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
-<span id="cb12-275"><a href="#cb12-275" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
-<span id="cb12-276"><a href="#cb12-276" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
-<span id="cb12-277"><a href="#cb12-277" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-278"><a href="#cb12-278" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-279"><a href="#cb12-279" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-280"><a href="#cb12-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag2) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
-<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a>Conjunto de ajuste:</span>
-<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag2, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
-<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-295"><a href="#cb12-295" aria-hidden="true" tabindex="-1"></a>Estimación del efecto:</span>
-<span id="cb12-296"><a href="#cb12-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-297"><a href="#cb12-297" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb12-298"><a href="#cb12-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-299"><a href="#cb12-299" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rnorm(800)</span></span>
-<span id="cb12-300"><a href="#cb12-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-301"><a href="#cb12-301" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;-  2 + 2*z + rnorm(800)</span></span>
-<span id="cb12-302"><a href="#cb12-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-303"><a href="#cb12-303" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;-  2 * x + rnorm(800)</span></span>
-<span id="cb12-304"><a href="#cb12-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-305"><a href="#cb12-305" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
-<span id="cb12-306"><a href="#cb12-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-307"><a href="#cb12-307" aria-hidden="true" tabindex="-1"></a><span class="in"># no hay sesgo</span></span>
-<span id="cb12-308"><a href="#cb12-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-309"><a href="#cb12-309" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
-<span id="cb12-310"><a href="#cb12-310" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
-<span id="cb12-311"><a href="#cb12-311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-312"><a href="#cb12-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-313"><a href="#cb12-313" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-314"><a href="#cb12-314" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-315"><a href="#cb12-315" aria-hidden="true" tabindex="-1"></a>Simulemos para ver mejor la diferencia</span>
-<span id="cb12-316"><a href="#cb12-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-317"><a href="#cb12-317" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb12-318"><a href="#cb12-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-319"><a href="#cb12-319" aria-hidden="true" tabindex="-1"></a><span class="in">f &lt;- function(bzx = 2, bxy =2, n = 100){</span></span>
-<span id="cb12-320"><a href="#cb12-320" aria-hidden="true" tabindex="-1"></a><span class="in">  z &lt;- rnorm(n, 4, 2)</span></span>
-<span id="cb12-321"><a href="#cb12-321" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;-  2 + bzx*z + rnorm(n)</span></span>
-<span id="cb12-322"><a href="#cb12-322" aria-hidden="true" tabindex="-1"></a><span class="in">  y &lt;-  2 + bxy*x + rnorm(n)</span></span>
-<span id="cb12-323"><a href="#cb12-323" aria-hidden="true" tabindex="-1"></a><span class="in">  d &lt;- tibble(x, y, z)</span></span>
-<span id="cb12-324"><a href="#cb12-324" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_preciso = coef(lm(y ~ x, data = d))[2]</span></span>
-<span id="cb12-325"><a href="#cb12-325" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_parasito = coef(lm(y ~ x + z,  data = d))[2]</span></span>
-<span id="cb12-326"><a href="#cb12-326" aria-hidden="true" tabindex="-1"></a><span class="in"> return(c(</span></span>
-<span id="cb12-327"><a href="#cb12-327" aria-hidden="true" tabindex="-1"></a><span class="in">    unlist(bx_preciso), unlist(bx_parasito)))</span></span>
-<span id="cb12-328"><a href="#cb12-328" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb12-329"><a href="#cb12-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-330"><a href="#cb12-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-331"><a href="#cb12-331" aria-hidden="true" tabindex="-1"></a><span class="in">sim &lt;- replicate(400, f(n = 200))</span></span>
-<span id="cb12-332"><a href="#cb12-332" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-333"><a href="#cb12-333" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- data.frame(bx_preciso = sim[1,], bx_parasito = sim[2,])</span></span>
-<span id="cb12-334"><a href="#cb12-334" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-335"><a href="#cb12-335" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- d  |&gt; </span></span>
-<span id="cb12-336"><a href="#cb12-336" aria-hidden="true" tabindex="-1"></a><span class="in">  pivot_longer(cols =everything())</span></span>
-<span id="cb12-337"><a href="#cb12-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-338"><a href="#cb12-338" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt; </span></span>
-<span id="cb12-339"><a href="#cb12-339" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = value, fill = name)) +</span></span>
-<span id="cb12-340"><a href="#cb12-340" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_density()</span></span>
-<span id="cb12-341"><a href="#cb12-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-342"><a href="#cb12-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-343"><a href="#cb12-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-344"><a href="#cb12-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-345"><a href="#cb12-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-346"><a href="#cb12-346" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-347"><a href="#cb12-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-348"><a href="#cb12-348" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-349"><a href="#cb12-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-350"><a href="#cb12-350" aria-hidden="true" tabindex="-1"></a><span class="fu">### Amplificación del sesgo</span></span>
-<span id="cb12-351"><a href="#cb12-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-352"><a href="#cb12-352" aria-hidden="true" tabindex="-1"></a>A veces, si ajustamos por un pretreatment pero hay una variable de confusión</span>
-<span id="cb12-353"><a href="#cb12-353" aria-hidden="true" tabindex="-1"></a>no observada, podemos incurrir en amplificación del sesgo</span>
-<span id="cb12-354"><a href="#cb12-354" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-355"><a href="#cb12-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-356"><a href="#cb12-356" aria-hidden="true" tabindex="-1"></a>DAG</span>
-<span id="cb12-357"><a href="#cb12-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-360"><a href="#cb12-360" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-361"><a href="#cb12-361" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
-<span id="cb12-362"><a href="#cb12-362" aria-hidden="true" tabindex="-1"></a>dag3 <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
-<span id="cb12-363"><a href="#cb12-363" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">~</span>  z <span class="sc">+</span> u, </span>
-<span id="cb12-364"><a href="#cb12-364" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span>  x <span class="sc">+</span> u,</span>
-<span id="cb12-365"><a href="#cb12-365" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
-<span id="cb12-366"><a href="#cb12-366" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
-<span id="cb12-367"><a href="#cb12-367" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
-<span id="cb12-368"><a href="#cb12-368" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">1</span>,</span>
-<span id="cb12-369"><a href="#cb12-369" aria-hidden="true" tabindex="-1"></a>      <span class="at">u =</span> <span class="dv">2</span>,</span>
-<span id="cb12-370"><a href="#cb12-370" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
-<span id="cb12-371"><a href="#cb12-371" aria-hidden="true" tabindex="-1"></a>    ),</span>
-<span id="cb12-372"><a href="#cb12-372" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
-<span id="cb12-373"><a href="#cb12-373" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
-<span id="cb12-374"><a href="#cb12-374" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
-<span id="cb12-375"><a href="#cb12-375" aria-hidden="true" tabindex="-1"></a>      <span class="at">u =</span> <span class="fl">1.5</span>,</span>
-<span id="cb12-376"><a href="#cb12-376" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
-<span id="cb12-377"><a href="#cb12-377" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-378"><a href="#cb12-378" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-379"><a href="#cb12-379" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb12-380"><a href="#cb12-380" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-381"><a href="#cb12-381" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag3) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
-<span id="cb12-382"><a href="#cb12-382" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-383"><a href="#cb12-383" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-384"><a href="#cb12-384" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-385"><a href="#cb12-385" aria-hidden="true" tabindex="-1"></a>Conjunto de ajuste:</span>
-<span id="cb12-386"><a href="#cb12-386" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-389"><a href="#cb12-389" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb12-390"><a href="#cb12-390" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag3, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
-<span id="cb12-391"><a href="#cb12-391" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-392"><a href="#cb12-392" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-393"><a href="#cb12-393" aria-hidden="true" tabindex="-1"></a>Tenemos que ajustar por <span class="in">`u`</span>, pero <span class="in">`u`</span> es no observada:</span>
-<span id="cb12-394"><a href="#cb12-394" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-395"><a href="#cb12-395" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb12-396"><a href="#cb12-396" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-397"><a href="#cb12-397" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rnorm(200)</span></span>
-<span id="cb12-398"><a href="#cb12-398" aria-hidden="true" tabindex="-1"></a><span class="in">u &lt;- rnorm(200)</span></span>
-<span id="cb12-399"><a href="#cb12-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-400"><a href="#cb12-400" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-401"><a href="#cb12-401" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;-  1 + 2*z + u + rnorm(200)</span></span>
-<span id="cb12-402"><a href="#cb12-402" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-403"><a href="#cb12-403" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- 1 +   x + u + rnorm(200)</span></span>
-<span id="cb12-404"><a href="#cb12-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-405"><a href="#cb12-405" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
-<span id="cb12-406"><a href="#cb12-406" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-407"><a href="#cb12-407" aria-hidden="true" tabindex="-1"></a><span class="in"># ajustar por la variable pre-treatment amplifica el sesgo</span></span>
-<span id="cb12-408"><a href="#cb12-408" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-409"><a href="#cb12-409" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
-<span id="cb12-410"><a href="#cb12-410" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
-<span id="cb12-411"><a href="#cb12-411" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-412"><a href="#cb12-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-413"><a href="#cb12-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-414"><a href="#cb12-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-415"><a href="#cb12-415" aria-hidden="true" tabindex="-1"></a>Simulemos para ver mejor la diferencia</span>
-<span id="cb12-416"><a href="#cb12-416" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-417"><a href="#cb12-417" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
-<span id="cb12-418"><a href="#cb12-418" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-419"><a href="#cb12-419" aria-hidden="true" tabindex="-1"></a><span class="in">f &lt;- function(bzx = 2, bxy =1, n = 100){</span></span>
-<span id="cb12-420"><a href="#cb12-420" aria-hidden="true" tabindex="-1"></a><span class="in">  z &lt;- rnorm(n)</span></span>
-<span id="cb12-421"><a href="#cb12-421" aria-hidden="true" tabindex="-1"></a><span class="in">  u &lt;- rnorm(n)</span></span>
-<span id="cb12-422"><a href="#cb12-422" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-423"><a href="#cb12-423" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;-  1 + bzx*z + u + rnorm(n)</span></span>
-<span id="cb12-424"><a href="#cb12-424" aria-hidden="true" tabindex="-1"></a><span class="in">  y &lt;-  1 + bxy*x + u + rnorm(n)</span></span>
-<span id="cb12-425"><a href="#cb12-425" aria-hidden="true" tabindex="-1"></a><span class="in">  d &lt;- tibble(x, y, z)</span></span>
-<span id="cb12-426"><a href="#cb12-426" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_sesgado = coef(lm(y ~ x, data = d))[2]</span></span>
-<span id="cb12-427"><a href="#cb12-427" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_sesgo_ampli = coef(lm(y ~ x + z,  data = d))[2]</span></span>
-<span id="cb12-428"><a href="#cb12-428" aria-hidden="true" tabindex="-1"></a><span class="in"> return(c(</span></span>
-<span id="cb12-429"><a href="#cb12-429" aria-hidden="true" tabindex="-1"></a><span class="in">    unlist(bx_sesgado), unlist(bx_sesgo_ampli)))</span></span>
-<span id="cb12-430"><a href="#cb12-430" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
-<span id="cb12-431"><a href="#cb12-431" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-432"><a href="#cb12-432" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-433"><a href="#cb12-433" aria-hidden="true" tabindex="-1"></a><span class="in">sim &lt;- replicate(400, f(n = 200))</span></span>
-<span id="cb12-434"><a href="#cb12-434" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-435"><a href="#cb12-435" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- data.frame(bx_sesgado = sim[1,], bx_sesgo_ampli = sim[2,])</span></span>
-<span id="cb12-436"><a href="#cb12-436" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-437"><a href="#cb12-437" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- d  |&gt; </span></span>
-<span id="cb12-438"><a href="#cb12-438" aria-hidden="true" tabindex="-1"></a><span class="in">  pivot_longer(cols =everything())</span></span>
-<span id="cb12-439"><a href="#cb12-439" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-440"><a href="#cb12-440" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt; </span></span>
-<span id="cb12-441"><a href="#cb12-441" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = value, fill = name)) +</span></span>
-<span id="cb12-442"><a href="#cb12-442" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_density()</span></span>
-<span id="cb12-443"><a href="#cb12-443" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-444"><a href="#cb12-444" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-445"><a href="#cb12-445" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb12-446"><a href="#cb12-446" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-447"><a href="#cb12-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-448"><a href="#cb12-448" aria-hidden="true" tabindex="-1"></a>Se produce la amplificación del sesgo</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Bloque 1. Materiales adicionales sobre DAGs"</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="an">author:</span><span class="co"> "Juan D. Montoro-Pons"</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="an">format:</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co">  html:</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-height: 5</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-dpi: 300</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-width: 8</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">    fig-align: center</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="co">    code-fold: true</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">    code-link: true</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">    code-tools: true </span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">    toc: true </span></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co">    toc-depth: 3</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a><span class="an">engine:</span><span class="co"> knitr </span></span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="an">execute:</span></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co">  warning: false</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co">  message: false</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="an">filters:</span><span class="co"> </span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="co">  - webr</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a><span class="fu">## 1. La inferencia causal no es (solo) un problema estadístico. </span></span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>Los siguientes DAGs ilustran conjuntos de datos generados por mecanismos</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>distintos que devuelven las mismas asociaciones estadísticas entre tratamiento y respuesta:</span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="fu">### Conexión por variable de colisión:</span></span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggdag)</span>
+<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_collider_triangle</span>() <span class="sc">+</span> <span class="fu">theme_dag_blank</span>()</span>
+<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a><span class="fu">### Confusión:</span></span>
+<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_confounder_triangle</span>() <span class="sc">+</span> <span class="fu">theme_dag_blank</span>()</span>
+<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a><span class="fu">### Efecto causal con mediación:</span></span>
+<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_mediation_triangle</span>() <span class="sc">+</span> <span class="fu">theme_dag_blank</span>()</span>
+<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### Sesgo en M:</span></span>
+<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_m_bias</span>(<span class="at">x_y_associated =</span> <span class="cn">TRUE</span>) <span class="sc">+</span> <span class="fu">theme_dag_blank</span>()</span>
+<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a><span class="fu">### Estimación del efecto para los diferentes MGD</span></span>
+<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>El paquete <span class="in">`quartets`</span> contiene simulaciones para los cuatro modelos anteriores:  </span>
+<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`causal_collider`</span>  </span>
+<span id="cb16-67"><a href="#cb16-67" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`causal_confounding`</span>  </span>
+<span id="cb16-68"><a href="#cb16-68" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`causal_mediator`</span>  </span>
+<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span><span class="in">`causal_m_bias`</span></span>
+<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a>Vamos a mostrar que el enfoque cuantitativo "puro" falla. Comenzamos con una regresión con controles en los cuatro escenarios simulados. Medicion de efectos observados:</span>
+<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a><span class="in">#| message: false</span></span>
+<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a><span class="in">#| warning: false</span></span>
+<span id="cb16-77"><a href="#cb16-77" aria-hidden="true" tabindex="-1"></a><span class="in">library(quartets)</span></span>
+<span id="cb16-78"><a href="#cb16-78" aria-hidden="true" tabindex="-1"></a><span class="in">library(tidyverse)</span></span>
+<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a><span class="in">library(broom)</span></span>
+<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a><span class="in">library(tidyverse)</span></span>
+<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a><span class="in"># 1. Tu resumen estadístico (ampliado con Sesgo)</span></span>
+<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a><span class="in">analisis_causal &lt;- causal_quartet |&gt; </span></span>
+<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a><span class="in">  group_by(dataset) |&gt; </span></span>
+<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a><span class="in">  summarise(</span></span>
+<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a><span class="in">    beta_simple = coef(lm(outcome ~ exposure))[2],</span></span>
+<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a><span class="in">    beta_ajustada = coef(lm(outcome ~ exposure + covariate))[2],</span></span>
+<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="in">    cor_xz = cor(exposure, covariate)</span></span>
+<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a><span class="in">  ) |&gt; </span></span>
+<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(</span></span>
+<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a><span class="in">    # En este cuarteto, el efecto verdadero suele ser 1</span></span>
+<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a><span class="in">    sesgo_ajuste = abs(1 - beta_ajustada)</span></span>
+<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a><span class="in">  )</span></span>
+<span id="cb16-94"><a href="#cb16-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-95"><a href="#cb16-95" aria-hidden="true" tabindex="-1"></a><span class="in">print(analisis_causal)</span></span>
+<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a>por  tabla con una visualización y un diagnóstico de Sesgo Relativo.</span>
+<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a>Propuesta de Análisis: La Trampa de la Regresión</span>
+<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a>Podemos comparar el efecto "crudo" frente al efecto "ajustado" para ver cómo la inclusión de la variable Z (la covariable) cambia la interpretación según el dataset.</span>
+<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-103"><a href="#cb16-103" aria-hidden="true" tabindex="-1"></a><span class="fu">## 2. Buenos y malos controles</span></span>
+<span id="cb16-104"><a href="#cb16-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a>Aunque hemos visto previamente las diferentes estructuras en un DAG, en este vamos a simular datos para convencernos de que efectivamente hay buenos y malos controles. </span>
+<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-110"><a href="#cb16-110" aria-hidden="true" tabindex="-1"></a><span class="fu">### Variable de confusión</span></span>
+<span id="cb16-111"><a href="#cb16-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a>__DAG__</span>
+<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a>dag1 <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">~</span>  z, </span>
+<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span> z <span class="sc">+</span> x,</span>
+<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a>  <span class="at">exposure =</span> <span class="st">"x"</span>,</span>
+<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome =</span> <span class="st">"y"</span>,</span>
+<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
+<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
+<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
+<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
+<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
+<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
+<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
+<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
+<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
+<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag1) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
+<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-140"><a href="#cb16-140" aria-hidden="true" tabindex="-1"></a>Veamos el conjunto de ajuste: </span>
+<span id="cb16-141"><a href="#cb16-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-144"><a href="#cb16-144" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-145"><a href="#cb16-145" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-146"><a href="#cb16-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag1, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
+<span id="cb16-148"><a href="#cb16-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-149"><a href="#cb16-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a>El modelo correcto dado este dag es ajustar por Z. Veamos si es cierto, simulando la estructura del dag.</span>
+<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rnorm(300)</span></span>
+<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- 2 + 3*z + rnorm(300)</span></span>
+<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- 2 + x + z + rnorm(300)</span></span>
+<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-162"><a href="#cb16-162" aria-hidden="true" tabindex="-1"></a><span class="in"># Modelo incorrecto</span></span>
+<span id="cb16-163"><a href="#cb16-163" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x) |&gt; confint()</span></span>
+<span id="cb16-164"><a href="#cb16-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-165"><a href="#cb16-165" aria-hidden="true" tabindex="-1"></a><span class="in"># Modelo correcto debería dar coeficiente de x = 1</span></span>
+<span id="cb16-166"><a href="#cb16-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-167"><a href="#cb16-167" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z ) |&gt; confint()</span></span>
+<span id="cb16-168"><a href="#cb16-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-169"><a href="#cb16-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-170"><a href="#cb16-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-171"><a href="#cb16-171" aria-hidden="true" tabindex="-1"></a><span class="fu">### Mediator o chain</span></span>
+<span id="cb16-172"><a href="#cb16-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-173"><a href="#cb16-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-174"><a href="#cb16-174" aria-hidden="true" tabindex="-1"></a>__DAG__</span>
+<span id="cb16-175"><a href="#cb16-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-178"><a href="#cb16-178" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-179"><a href="#cb16-179" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-180"><a href="#cb16-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-181"><a href="#cb16-181" aria-hidden="true" tabindex="-1"></a>dag_med <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb16-182"><a href="#cb16-182" aria-hidden="true" tabindex="-1"></a>  z <span class="sc">~</span>  x, </span>
+<span id="cb16-183"><a href="#cb16-183" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span> z ,</span>
+<span id="cb16-184"><a href="#cb16-184" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
+<span id="cb16-185"><a href="#cb16-185" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
+<span id="cb16-186"><a href="#cb16-186" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
+<span id="cb16-187"><a href="#cb16-187" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
+<span id="cb16-188"><a href="#cb16-188" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
+<span id="cb16-189"><a href="#cb16-189" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-190"><a href="#cb16-190" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
+<span id="cb16-191"><a href="#cb16-191" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
+<span id="cb16-192"><a href="#cb16-192" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">1</span>,</span>
+<span id="cb16-193"><a href="#cb16-193" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
+<span id="cb16-194"><a href="#cb16-194" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-195"><a href="#cb16-195" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb16-196"><a href="#cb16-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-197"><a href="#cb16-197" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag_med) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
+<span id="cb16-198"><a href="#cb16-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-199"><a href="#cb16-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-200"><a href="#cb16-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-201"><a href="#cb16-201" aria-hidden="true" tabindex="-1"></a>Cuando tenemos una variable mediadora podemos estar interesados en el efecto total o en el efecto directo.</span>
+<span id="cb16-202"><a href="#cb16-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-203"><a href="#cb16-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-204"><a href="#cb16-204" aria-hidden="true" tabindex="-1"></a>__Efecto total__</span>
+<span id="cb16-205"><a href="#cb16-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-206"><a href="#cb16-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-209"><a href="#cb16-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-210"><a href="#cb16-210" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-211"><a href="#cb16-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-212"><a href="#cb16-212" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag_med, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>, <span class="at">effect =</span> <span class="st">"total"</span>) <span class="sc">+</span></span>
+<span id="cb16-213"><a href="#cb16-213" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>()</span>
+<span id="cb16-214"><a href="#cb16-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-215"><a href="#cb16-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-216"><a href="#cb16-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-217"><a href="#cb16-217" aria-hidden="true" tabindex="-1"></a>__Efecto directo__</span>
+<span id="cb16-218"><a href="#cb16-218" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-221"><a href="#cb16-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-222"><a href="#cb16-222" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-223"><a href="#cb16-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-224"><a href="#cb16-224" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag_med, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>, <span class="at">effect =</span> <span class="st">"direct"</span>) <span class="sc">+</span></span>
+<span id="cb16-225"><a href="#cb16-225" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_dag</span>()</span>
+<span id="cb16-226"><a href="#cb16-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-227"><a href="#cb16-227" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-228"><a href="#cb16-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-229"><a href="#cb16-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-230"><a href="#cb16-230" aria-hidden="true" tabindex="-1"></a>Simulamos un efecto total de <span class="in">`x`</span> sobre <span class="in">`y`</span> igual a 6, pero totalmente mediado sólo por <span class="in">`z`</span>, y que el efecto directo de <span class="in">`x`</span> sobre <span class="in">`y`</span> es 0.</span>
+<span id="cb16-231"><a href="#cb16-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-232"><a href="#cb16-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-233"><a href="#cb16-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-234"><a href="#cb16-234" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rnorm(800)</span></span>
+<span id="cb16-235"><a href="#cb16-235" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;-  3*x + rnorm(800)</span></span>
+<span id="cb16-236"><a href="#cb16-236" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- 2*z + rnorm(800)</span></span>
+<span id="cb16-237"><a href="#cb16-237" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
+<span id="cb16-238"><a href="#cb16-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-239"><a href="#cb16-239" aria-hidden="true" tabindex="-1"></a><span class="in"># Para valores similares de Z el efecto de X sobre Y es 0, </span></span>
+<span id="cb16-240"><a href="#cb16-240" aria-hidden="true" tabindex="-1"></a><span class="in"># Se puede observar haciendo  "cortes" en Z para verlo</span></span>
+<span id="cb16-241"><a href="#cb16-241" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt;</span></span>
+<span id="cb16-242"><a href="#cb16-242" aria-hidden="true" tabindex="-1"></a><span class="in">  mutate(z_cut = cut_interval(z, 9)) |&gt;</span></span>
+<span id="cb16-243"><a href="#cb16-243" aria-hidden="true" tabindex="-1"></a><span class="in"> ggplot(aes(x = x, y = y)) +</span></span>
+<span id="cb16-244"><a href="#cb16-244" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point(aes(color = z_cut)) +</span></span>
+<span id="cb16-245"><a href="#cb16-245" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth= 2) +</span></span>
+<span id="cb16-246"><a href="#cb16-246" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(aes(color= z_cut), method = "lm", se = FALSE)</span></span>
+<span id="cb16-247"><a href="#cb16-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-248"><a href="#cb16-248" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-249"><a href="#cb16-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-250"><a href="#cb16-250" aria-hidden="true" tabindex="-1"></a>Efecto total es sin ajustar por <span class="in">`z`</span> y el efecto directo es ajustando por <span class="in">`z`</span></span>
+<span id="cb16-251"><a href="#cb16-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-252"><a href="#cb16-252" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-253"><a href="#cb16-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-254"><a href="#cb16-254" aria-hidden="true" tabindex="-1"></a><span class="in"># efecto total</span></span>
+<span id="cb16-255"><a href="#cb16-255" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
+<span id="cb16-256"><a href="#cb16-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-257"><a href="#cb16-257" aria-hidden="true" tabindex="-1"></a><span class="in"># efecto directo</span></span>
+<span id="cb16-258"><a href="#cb16-258" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
+<span id="cb16-259"><a href="#cb16-259" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-260"><a href="#cb16-260" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-261"><a href="#cb16-261" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-262"><a href="#cb16-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-263"><a href="#cb16-263" aria-hidden="true" tabindex="-1"></a><span class="fu">###  Variable de colisión</span></span>
+<span id="cb16-264"><a href="#cb16-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-265"><a href="#cb16-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-266"><a href="#cb16-266" aria-hidden="true" tabindex="-1"></a>No debemos condicionar por una variable de colisión.</span>
+<span id="cb16-267"><a href="#cb16-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-268"><a href="#cb16-268" aria-hidden="true" tabindex="-1"></a>DAG</span>
+<span id="cb16-269"><a href="#cb16-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-272"><a href="#cb16-272" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-273"><a href="#cb16-273" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-274"><a href="#cb16-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-275"><a href="#cb16-275" aria-hidden="true" tabindex="-1"></a>collider_dag <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb16-276"><a href="#cb16-276" aria-hidden="true" tabindex="-1"></a>  z <span class="sc">~</span> x <span class="sc">+</span> y ,</span>
+<span id="cb16-277"><a href="#cb16-277" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
+<span id="cb16-278"><a href="#cb16-278" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
+<span id="cb16-279"><a href="#cb16-279" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
+<span id="cb16-280"><a href="#cb16-280" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
+<span id="cb16-281"><a href="#cb16-281" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
+<span id="cb16-282"><a href="#cb16-282" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-283"><a href="#cb16-283" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
+<span id="cb16-284"><a href="#cb16-284" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
+<span id="cb16-285"><a href="#cb16-285" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
+<span id="cb16-286"><a href="#cb16-286" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
+<span id="cb16-287"><a href="#cb16-287" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-288"><a href="#cb16-288" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-289"><a href="#cb16-289" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-290"><a href="#cb16-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-291"><a href="#cb16-291" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(collider_dag) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
+<span id="cb16-292"><a href="#cb16-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-293"><a href="#cb16-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-294"><a href="#cb16-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-295"><a href="#cb16-295" aria-hidden="true" tabindex="-1"></a>Y el conjunto de ajuste:</span>
+<span id="cb16-296"><a href="#cb16-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-299"><a href="#cb16-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-300"><a href="#cb16-300" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-301"><a href="#cb16-301" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(collider_dag, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
+<span id="cb16-302"><a href="#cb16-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-303"><a href="#cb16-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-304"><a href="#cb16-304" aria-hidden="true" tabindex="-1"></a>En el siguiente ejemplo el verdadero efecto de x sobre y es 0; pero si ajustamos por la variable de colisión se abre el camino no causal y surje el sesgo.</span>
+<span id="cb16-305"><a href="#cb16-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-306"><a href="#cb16-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr, colllider_sim}</span></span>
+<span id="cb16-307"><a href="#cb16-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-308"><a href="#cb16-308" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;- rnorm(800)</span></span>
+<span id="cb16-309"><a href="#cb16-309" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- rnorm(800)</span></span>
+<span id="cb16-310"><a href="#cb16-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-311"><a href="#cb16-311" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- as.factor(rbinom(800,1, plogis(2*x - 2*y + rnorm(800))))</span></span>
+<span id="cb16-312"><a href="#cb16-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-313"><a href="#cb16-313" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
+<span id="cb16-314"><a href="#cb16-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-315"><a href="#cb16-315" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt; </span></span>
+<span id="cb16-316"><a href="#cb16-316" aria-hidden="true" tabindex="-1"></a><span class="in"> ggplot(aes(x = x, y = y)) +</span></span>
+<span id="cb16-317"><a href="#cb16-317" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_point(aes(color = z)) +</span></span>
+<span id="cb16-318"><a href="#cb16-318" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(method = "lm", se = FALSE, color = "black", linewidth= 2) +</span></span>
+<span id="cb16-319"><a href="#cb16-319" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_smooth(aes(color= z), method = "lm", se = FALSE)</span></span>
+<span id="cb16-320"><a href="#cb16-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-321"><a href="#cb16-321" aria-hidden="true" tabindex="-1"></a><span class="in"># Prueba a ajustar lo siguiente, puedes descomentar o escribir tu código</span></span>
+<span id="cb16-322"><a href="#cb16-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-323"><a href="#cb16-323" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
+<span id="cb16-324"><a href="#cb16-324" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
+<span id="cb16-325"><a href="#cb16-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-326"><a href="#cb16-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-327"><a href="#cb16-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-328"><a href="#cb16-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-329"><a href="#cb16-329" aria-hidden="true" tabindex="-1"></a><span class="fu">### Parásito de la precisión</span></span>
+<span id="cb16-330"><a href="#cb16-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-331"><a href="#cb16-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-332"><a href="#cb16-332" aria-hidden="true" tabindex="-1"></a>Hay veces en que ajustar por antecedentes al tratamiento es perjudicial. Si no hay variables de confusión "ocultas" se produce una reducción de la precisión</span>
+<span id="cb16-333"><a href="#cb16-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-334"><a href="#cb16-334" aria-hidden="true" tabindex="-1"></a>DAG</span>
+<span id="cb16-335"><a href="#cb16-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-338"><a href="#cb16-338" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-339"><a href="#cb16-339" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-340"><a href="#cb16-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-341"><a href="#cb16-341" aria-hidden="true" tabindex="-1"></a>dag2 <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb16-342"><a href="#cb16-342" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">~</span>  z, </span>
+<span id="cb16-343"><a href="#cb16-343" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span>  x,</span>
+<span id="cb16-344"><a href="#cb16-344" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
+<span id="cb16-345"><a href="#cb16-345" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
+<span id="cb16-346"><a href="#cb16-346" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
+<span id="cb16-347"><a href="#cb16-347" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">1</span>,</span>
+<span id="cb16-348"><a href="#cb16-348" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
+<span id="cb16-349"><a href="#cb16-349" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-350"><a href="#cb16-350" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
+<span id="cb16-351"><a href="#cb16-351" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
+<span id="cb16-352"><a href="#cb16-352" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
+<span id="cb16-353"><a href="#cb16-353" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
+<span id="cb16-354"><a href="#cb16-354" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-355"><a href="#cb16-355" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-356"><a href="#cb16-356" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-357"><a href="#cb16-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-358"><a href="#cb16-358" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag2) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
+<span id="cb16-359"><a href="#cb16-359" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-360"><a href="#cb16-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-361"><a href="#cb16-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-362"><a href="#cb16-362" aria-hidden="true" tabindex="-1"></a>Conjunto de ajuste:</span>
+<span id="cb16-363"><a href="#cb16-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-366"><a href="#cb16-366" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-367"><a href="#cb16-367" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-368"><a href="#cb16-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-369"><a href="#cb16-369" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag2, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
+<span id="cb16-370"><a href="#cb16-370" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-371"><a href="#cb16-371" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-372"><a href="#cb16-372" aria-hidden="true" tabindex="-1"></a>Estimación del efecto:</span>
+<span id="cb16-373"><a href="#cb16-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-374"><a href="#cb16-374" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-375"><a href="#cb16-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-376"><a href="#cb16-376" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rnorm(800)</span></span>
+<span id="cb16-377"><a href="#cb16-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-378"><a href="#cb16-378" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;-  2 + 2*z + rnorm(800)</span></span>
+<span id="cb16-379"><a href="#cb16-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-380"><a href="#cb16-380" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;-  2 * x + rnorm(800)</span></span>
+<span id="cb16-381"><a href="#cb16-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-382"><a href="#cb16-382" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
+<span id="cb16-383"><a href="#cb16-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-384"><a href="#cb16-384" aria-hidden="true" tabindex="-1"></a><span class="in"># no hay sesgo</span></span>
+<span id="cb16-385"><a href="#cb16-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-386"><a href="#cb16-386" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
+<span id="cb16-387"><a href="#cb16-387" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
+<span id="cb16-388"><a href="#cb16-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-389"><a href="#cb16-389" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-390"><a href="#cb16-390" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-391"><a href="#cb16-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-392"><a href="#cb16-392" aria-hidden="true" tabindex="-1"></a>Simulemos para ver mejor la diferencia</span>
+<span id="cb16-393"><a href="#cb16-393" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-394"><a href="#cb16-394" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-395"><a href="#cb16-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-396"><a href="#cb16-396" aria-hidden="true" tabindex="-1"></a><span class="in">f &lt;- function(bzx = 2, bxy =2, n = 100){</span></span>
+<span id="cb16-397"><a href="#cb16-397" aria-hidden="true" tabindex="-1"></a><span class="in">  z &lt;- rnorm(n, 4, 2)</span></span>
+<span id="cb16-398"><a href="#cb16-398" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;-  2 + bzx*z + rnorm(n)</span></span>
+<span id="cb16-399"><a href="#cb16-399" aria-hidden="true" tabindex="-1"></a><span class="in">  y &lt;-  2 + bxy*x + rnorm(n)</span></span>
+<span id="cb16-400"><a href="#cb16-400" aria-hidden="true" tabindex="-1"></a><span class="in">  d &lt;- tibble(x, y, z)</span></span>
+<span id="cb16-401"><a href="#cb16-401" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_preciso = coef(lm(y ~ x, data = d))[2]</span></span>
+<span id="cb16-402"><a href="#cb16-402" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_parasito = coef(lm(y ~ x + z,  data = d))[2]</span></span>
+<span id="cb16-403"><a href="#cb16-403" aria-hidden="true" tabindex="-1"></a><span class="in"> return(c(</span></span>
+<span id="cb16-404"><a href="#cb16-404" aria-hidden="true" tabindex="-1"></a><span class="in">    unlist(bx_preciso), unlist(bx_parasito)))</span></span>
+<span id="cb16-405"><a href="#cb16-405" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb16-406"><a href="#cb16-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-407"><a href="#cb16-407" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-408"><a href="#cb16-408" aria-hidden="true" tabindex="-1"></a><span class="in">sim &lt;- replicate(400, f(n = 200))</span></span>
+<span id="cb16-409"><a href="#cb16-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-410"><a href="#cb16-410" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- data.frame(bx_preciso = sim[1,], bx_parasito = sim[2,])</span></span>
+<span id="cb16-411"><a href="#cb16-411" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-412"><a href="#cb16-412" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- d  |&gt; </span></span>
+<span id="cb16-413"><a href="#cb16-413" aria-hidden="true" tabindex="-1"></a><span class="in">  pivot_longer(cols =everything())</span></span>
+<span id="cb16-414"><a href="#cb16-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-415"><a href="#cb16-415" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt; </span></span>
+<span id="cb16-416"><a href="#cb16-416" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = value, fill = name)) +</span></span>
+<span id="cb16-417"><a href="#cb16-417" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_density()</span></span>
+<span id="cb16-418"><a href="#cb16-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-419"><a href="#cb16-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-420"><a href="#cb16-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-421"><a href="#cb16-421" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-422"><a href="#cb16-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-423"><a href="#cb16-423" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-424"><a href="#cb16-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-425"><a href="#cb16-425" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-426"><a href="#cb16-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-427"><a href="#cb16-427" aria-hidden="true" tabindex="-1"></a><span class="fu">### Amplificación del sesgo</span></span>
+<span id="cb16-428"><a href="#cb16-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-429"><a href="#cb16-429" aria-hidden="true" tabindex="-1"></a>A veces, si ajustamos por un pretreatment pero hay una variable de confusión</span>
+<span id="cb16-430"><a href="#cb16-430" aria-hidden="true" tabindex="-1"></a>no observada, podemos incurrir en amplificación del sesgo</span>
+<span id="cb16-431"><a href="#cb16-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-432"><a href="#cb16-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-433"><a href="#cb16-433" aria-hidden="true" tabindex="-1"></a>DAG</span>
+<span id="cb16-434"><a href="#cb16-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-437"><a href="#cb16-437" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-438"><a href="#cb16-438" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
+<span id="cb16-439"><a href="#cb16-439" aria-hidden="true" tabindex="-1"></a>dag3 <span class="ot">&lt;-</span> <span class="fu">dagify</span>(</span>
+<span id="cb16-440"><a href="#cb16-440" aria-hidden="true" tabindex="-1"></a>  x <span class="sc">~</span>  z <span class="sc">+</span> u, </span>
+<span id="cb16-441"><a href="#cb16-441" aria-hidden="true" tabindex="-1"></a>  y <span class="sc">~</span>  x <span class="sc">+</span> u,</span>
+<span id="cb16-442"><a href="#cb16-442" aria-hidden="true" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">list</span>(</span>
+<span id="cb16-443"><a href="#cb16-443" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(</span>
+<span id="cb16-444"><a href="#cb16-444" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>,</span>
+<span id="cb16-445"><a href="#cb16-445" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">1</span>,</span>
+<span id="cb16-446"><a href="#cb16-446" aria-hidden="true" tabindex="-1"></a>      <span class="at">u =</span> <span class="dv">2</span>,</span>
+<span id="cb16-447"><a href="#cb16-447" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">3</span></span>
+<span id="cb16-448"><a href="#cb16-448" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb16-449"><a href="#cb16-449" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(</span>
+<span id="cb16-450"><a href="#cb16-450" aria-hidden="true" tabindex="-1"></a>      <span class="at">x =</span> <span class="dv">1</span>, </span>
+<span id="cb16-451"><a href="#cb16-451" aria-hidden="true" tabindex="-1"></a>      <span class="at">z =</span> <span class="dv">2</span>,</span>
+<span id="cb16-452"><a href="#cb16-452" aria-hidden="true" tabindex="-1"></a>      <span class="at">u =</span> <span class="fl">1.5</span>,</span>
+<span id="cb16-453"><a href="#cb16-453" aria-hidden="true" tabindex="-1"></a>      <span class="at">y =</span> <span class="dv">1</span></span>
+<span id="cb16-454"><a href="#cb16-454" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb16-455"><a href="#cb16-455" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-456"><a href="#cb16-456" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-457"><a href="#cb16-457" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-458"><a href="#cb16-458" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag</span>(dag3) <span class="sc">+</span> <span class="fu">theme_dag</span>()</span>
+<span id="cb16-459"><a href="#cb16-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-460"><a href="#cb16-460" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-461"><a href="#cb16-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-462"><a href="#cb16-462" aria-hidden="true" tabindex="-1"></a>Conjunto de ajuste:</span>
+<span id="cb16-463"><a href="#cb16-463" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-466"><a href="#cb16-466" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb16-467"><a href="#cb16-467" aria-hidden="true" tabindex="-1"></a><span class="fu">ggdag_adjustment_set</span>(dag3, <span class="at">exposure =</span> <span class="st">"x"</span>, <span class="at">outcome =</span> <span class="st">"y"</span>)</span>
+<span id="cb16-468"><a href="#cb16-468" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-469"><a href="#cb16-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-470"><a href="#cb16-470" aria-hidden="true" tabindex="-1"></a>Tenemos que ajustar por <span class="in">`u`</span>, pero <span class="in">`u`</span> es no observada:</span>
+<span id="cb16-471"><a href="#cb16-471" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-472"><a href="#cb16-472" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-473"><a href="#cb16-473" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-474"><a href="#cb16-474" aria-hidden="true" tabindex="-1"></a><span class="in">z &lt;- rnorm(200)</span></span>
+<span id="cb16-475"><a href="#cb16-475" aria-hidden="true" tabindex="-1"></a><span class="in">u &lt;- rnorm(200)</span></span>
+<span id="cb16-476"><a href="#cb16-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-477"><a href="#cb16-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-478"><a href="#cb16-478" aria-hidden="true" tabindex="-1"></a><span class="in">x &lt;-  1 + 2*z + u + rnorm(200)</span></span>
+<span id="cb16-479"><a href="#cb16-479" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-480"><a href="#cb16-480" aria-hidden="true" tabindex="-1"></a><span class="in">y &lt;- 1 +   x + u + rnorm(200)</span></span>
+<span id="cb16-481"><a href="#cb16-481" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-482"><a href="#cb16-482" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- tibble(x, y, z)</span></span>
+<span id="cb16-483"><a href="#cb16-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-484"><a href="#cb16-484" aria-hidden="true" tabindex="-1"></a><span class="in"># ajustar por la variable pre-treatment amplifica el sesgo</span></span>
+<span id="cb16-485"><a href="#cb16-485" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-486"><a href="#cb16-486" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x, data = d) |&gt; confint()</span></span>
+<span id="cb16-487"><a href="#cb16-487" aria-hidden="true" tabindex="-1"></a><span class="in">lm(y ~ x + z, data = d) |&gt; confint()</span></span>
+<span id="cb16-488"><a href="#cb16-488" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-489"><a href="#cb16-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-490"><a href="#cb16-490" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-491"><a href="#cb16-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-492"><a href="#cb16-492" aria-hidden="true" tabindex="-1"></a>Simulemos para ver mejor la diferencia</span>
+<span id="cb16-493"><a href="#cb16-493" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-494"><a href="#cb16-494" aria-hidden="true" tabindex="-1"></a><span class="in">```{webr-r}</span></span>
+<span id="cb16-495"><a href="#cb16-495" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-496"><a href="#cb16-496" aria-hidden="true" tabindex="-1"></a><span class="in">f &lt;- function(bzx = 2, bxy =1, n = 100){</span></span>
+<span id="cb16-497"><a href="#cb16-497" aria-hidden="true" tabindex="-1"></a><span class="in">  z &lt;- rnorm(n)</span></span>
+<span id="cb16-498"><a href="#cb16-498" aria-hidden="true" tabindex="-1"></a><span class="in">  u &lt;- rnorm(n)</span></span>
+<span id="cb16-499"><a href="#cb16-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-500"><a href="#cb16-500" aria-hidden="true" tabindex="-1"></a><span class="in">  x &lt;-  1 + bzx*z + u + rnorm(n)</span></span>
+<span id="cb16-501"><a href="#cb16-501" aria-hidden="true" tabindex="-1"></a><span class="in">  y &lt;-  1 + bxy*x + u + rnorm(n)</span></span>
+<span id="cb16-502"><a href="#cb16-502" aria-hidden="true" tabindex="-1"></a><span class="in">  d &lt;- tibble(x, y, z)</span></span>
+<span id="cb16-503"><a href="#cb16-503" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_sesgado = coef(lm(y ~ x, data = d))[2]</span></span>
+<span id="cb16-504"><a href="#cb16-504" aria-hidden="true" tabindex="-1"></a><span class="in">  bx_sesgo_ampli = coef(lm(y ~ x + z,  data = d))[2]</span></span>
+<span id="cb16-505"><a href="#cb16-505" aria-hidden="true" tabindex="-1"></a><span class="in"> return(c(</span></span>
+<span id="cb16-506"><a href="#cb16-506" aria-hidden="true" tabindex="-1"></a><span class="in">    unlist(bx_sesgado), unlist(bx_sesgo_ampli)))</span></span>
+<span id="cb16-507"><a href="#cb16-507" aria-hidden="true" tabindex="-1"></a><span class="in">}</span></span>
+<span id="cb16-508"><a href="#cb16-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-509"><a href="#cb16-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-510"><a href="#cb16-510" aria-hidden="true" tabindex="-1"></a><span class="in">sim &lt;- replicate(400, f(n = 200))</span></span>
+<span id="cb16-511"><a href="#cb16-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-512"><a href="#cb16-512" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- data.frame(bx_sesgado = sim[1,], bx_sesgo_ampli = sim[2,])</span></span>
+<span id="cb16-513"><a href="#cb16-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-514"><a href="#cb16-514" aria-hidden="true" tabindex="-1"></a><span class="in">d &lt;- d  |&gt; </span></span>
+<span id="cb16-515"><a href="#cb16-515" aria-hidden="true" tabindex="-1"></a><span class="in">  pivot_longer(cols =everything())</span></span>
+<span id="cb16-516"><a href="#cb16-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-517"><a href="#cb16-517" aria-hidden="true" tabindex="-1"></a><span class="in">d  |&gt; </span></span>
+<span id="cb16-518"><a href="#cb16-518" aria-hidden="true" tabindex="-1"></a><span class="in">  ggplot(aes(x = value, fill = name)) +</span></span>
+<span id="cb16-519"><a href="#cb16-519" aria-hidden="true" tabindex="-1"></a><span class="in">  geom_density()</span></span>
+<span id="cb16-520"><a href="#cb16-520" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-521"><a href="#cb16-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-522"><a href="#cb16-522" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb16-523"><a href="#cb16-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-524"><a href="#cb16-524" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-525"><a href="#cb16-525" aria-hidden="true" tabindex="-1"></a>Y vemos que se produce la amplificación del sesgo</span>
 </code></pre></div><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal=""><i class="bi"></i></button></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
